@@ -30,7 +30,7 @@ svn checkout http://llvm.org/svn/llvm-project/cfe/trunk /mnt/buildbot_iwyu_trunk
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/build_llvm
 cd /mnt/buildbot_iwyu_trunk/workspace/build_llvm
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/llvm/
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=YES /mnt/buildbot_iwyu_trunk/workspace/sources/llvm/
 ninja install
 
 
