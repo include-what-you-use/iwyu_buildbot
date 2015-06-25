@@ -34,5 +34,6 @@ cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/install
 ninja install
 
 
-svn checkout https://include-what-you-use.googlecode.com/svn/trunk iwyu
+#svn checkout https://include-what-you-use.googlecode.com/svn/trunk iwyu
+git clone https://github.com/include-what-you-use/include-what-you-use.git iwyu
 cmake -G Ninja -DLLVM_PATH=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/iwyu/
