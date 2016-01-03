@@ -37,3 +37,18 @@ ninja install
 #svn checkout https://include-what-you-use.googlecode.com/svn/trunk iwyu
 git clone https://github.com/include-what-you-use/include-what-you-use.git iwyu
 cmake -G Ninja -DLLVM_PATH=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/iwyu/
+
+
+# Slave startup.
+sudo crontab -e
+  @reboot /home/ubuntu/attach_ebs.sh
+  @reboot /usr/local/bin/buildslave start /home/ubuntu/slave/
+
+
+# attach_ebs.sh 764 ubuntu:ubuntu
+#!/bin/bash
+
+set -euo pipefail
+
+sudo mkdir /mnt/buildbot_iwyu_trunk
+sudo mount /dev/xvdf /mnt/buildbot_iwyu_trunk
