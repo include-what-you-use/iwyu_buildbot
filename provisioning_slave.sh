@@ -14,7 +14,7 @@ sudo cp ./ninja /usr/bin/ninja
 # Install buildbot slave.
 sudo apt-get install -y python-dev python-setuptools
 sudo easy_install buildbot-slave
-buildslave create-slave slave buildbot-master.include-what-you-use.com:9989 <name> <password>
+buildslave create-slave slave buildbot-master.include-what-you-use.org:9989 <name> <password>
 
 
 # Setup EBS.
