@@ -23,6 +23,8 @@ sudo mkdir /mnt/buildbot_iwyu_trunk
 sudo mount /dev/xvdf /mnt/buildbot_iwyu_trunk/
 sudo mkdir /mnt/buildbot_iwyu_trunk/workspace
 sudo chown ubuntu:ubuntu /mnt/buildbot_iwyu_trunk/workspace/
+# Add to /etc/fstab record like
+# UUID=224413c7-7291-4fcb-a247-7e2ce78ce1f4 /mnt/buildbot_iwyu_trunk auto defaults,errors=remount-ro 0 2
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/sources
 svn checkout http://llvm.org/svn/llvm-project/llvm/trunk /mnt/buildbot_iwyu_trunk/workspace/sources/llvm
@@ -44,14 +46,4 @@ cmake -G Ninja -DIWYU_LLVM_ROOT_PATH=/mnt/buildbot_iwyu_trunk/workspace/installe
 
 # Slave startup.
 sudo crontab -e
-  @reboot /home/ubuntu/attach_ebs.sh
   @reboot /usr/local/bin/buildslave start /home/ubuntu/slave/
-
-
-# attach_ebs.sh 764 ubuntu:ubuntu
-#!/bin/bash
-
-set -euo pipefail
-
-sudo mkdir /mnt/buildbot_iwyu_trunk
-sudo mount /dev/xvdf /mnt/buildbot_iwyu_trunk
