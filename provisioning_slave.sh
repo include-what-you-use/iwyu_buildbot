@@ -41,7 +41,7 @@ cd /mnt/buildbot_iwyu_trunk/workspace/sources
 git clone https://github.com/include-what-you-use/include-what-you-use.git iwyu
 mkdir /mnt/buildbot_iwyu_trunk/workspace/build_iwyu
 cd /mnt/buildbot_iwyu_trunk/workspace/build_iwyu
-cmake -G Ninja -DCMAKE_PREFIX_PATH=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/iwyu/
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ -DCMAKE_PREFIX_PATH=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/iwyu/
 
 
 # Slave startup.
