@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y subversion git
+sudo apt-get install -y git
 sudo apt-get install -y build-essential ncurses-dev libz-dev
 sudo apt-get install -y cmake
 sudo apt-get install -y python python-pip
@@ -27,8 +27,9 @@ sudo chown ubuntu:ubuntu /mnt/buildbot_iwyu_trunk/workspace/
 # UUID=224413c7-7291-4fcb-a247-7e2ce78ce1f4 /mnt/buildbot_iwyu_trunk auto defaults,errors=remount-ro 0 2
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/sources
-svn checkout http://llvm.org/svn/llvm-project/llvm/trunk /mnt/buildbot_iwyu_trunk/workspace/sources/llvm
-svn checkout http://llvm.org/svn/llvm-project/cfe/trunk /mnt/buildbot_iwyu_trunk/workspace/sources/llvm/tools/clang
+cd /mnt/buildbot_iwyu_trunk/workspace/sources
+git clone --depth 1 https://git.llvm.org/git/llvm.git llvm
+git clone --depth 1 https://git.llvm.org/git/clang.git llvm/tools/clang
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/build_llvm
 cd /mnt/buildbot_iwyu_trunk/workspace/build_llvm
@@ -37,7 +38,6 @@ ninja install
 
 
 cd /mnt/buildbot_iwyu_trunk/workspace/sources
-#svn checkout https://include-what-you-use.googlecode.com/svn/trunk iwyu
 git clone https://github.com/include-what-you-use/include-what-you-use.git iwyu
 mkdir /mnt/buildbot_iwyu_trunk/workspace/build_iwyu
 cd /mnt/buildbot_iwyu_trunk/workspace/build_iwyu
