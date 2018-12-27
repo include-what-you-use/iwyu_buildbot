@@ -4,6 +4,7 @@ sudo apt-get update
 sudo apt-get install -y subversion git
 sudo apt-get install -y build-essential ncurses-dev libz-dev
 sudo apt-get install -y cmake
+sudo apt-get install -y python python-pip
 
 # Install ninja.
 git clone git://github.com/martine/ninja.git ~/ninja
@@ -12,8 +13,7 @@ cd ~/ninja
 sudo cp ./ninja /usr/bin/ninja
 
 # Install buildbot slave.
-sudo apt-get install -y python-dev python-setuptools
-sudo easy_install buildbot-slave
+sudo pip install buildbot-slave
 buildslave create-slave slave buildbot-master.include-what-you-use.org:9989 <name> <password>
 
 
