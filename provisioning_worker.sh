@@ -12,9 +12,9 @@ cd ~/ninja
 ./configure.py --bootstrap
 sudo cp ./ninja /usr/bin/ninja
 
-# Install buildbot slave.
-sudo pip install buildbot-slave
-buildslave create-slave slave buildbot-master.include-what-you-use.org:9989 <name> <password>
+# Install buildbot worker.
+sudo pip install buildbot-worker
+buildbot-worker create-worker worker buildbot-master.include-what-you-use.org:9989 <name> <password>
 
 
 # Setup EBS.
@@ -44,6 +44,6 @@ cd /mnt/buildbot_iwyu_trunk/workspace/build_iwyu
 cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ -DCMAKE_PREFIX_PATH=/mnt/buildbot_iwyu_trunk/workspace/installed/ /mnt/buildbot_iwyu_trunk/workspace/sources/iwyu/
 
 
-# Slave startup.
+# Worker startup.
 sudo crontab -e
-  @reboot /usr/local/bin/buildslave start /home/ubuntu/slave/
+  @reboot /usr/local/bin/buildbot-worker start /home/ubuntu/worker/

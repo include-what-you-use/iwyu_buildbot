@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-# As an example was taken EC2LatentBuildSlave https://github.com/buildbot/buildbot/blob/master/master/buildbot/buildslave/ec2.py
-
 import os
 import time
 
@@ -15,15 +13,15 @@ from twisted.internet import threads
 from twisted.python import log
 
 from buildbot import config
-from buildbot.buildslave.base import AbstractLatentBuildSlave
+from buildbot.worker import AbstractLatentWorker
 
 RUNNING = "running"
 STOPPED = "stopped"
 
-class EC2LatentBuildSlave(AbstractLatentBuildSlave):
+class EC2LatentWorker(AbstractLatentWorker):
     """Slave which starts existing EC2 instance, executes build, stops instance.
 
-    Difference between default EC2LatentBuildSlave is it doesn't create a new
+    Difference between default EC2LatentWorker is it doesn't create a new
     instance, but starts existing.
     """
 
@@ -33,7 +31,7 @@ class EC2LatentBuildSlave(AbstractLatentBuildSlave):
                  aws_id_file_path, region, instance_name):
         if not boto:
             config.error("The python module 'boto' is needed to use EC2 build slaves")
-        AbstractLatentBuildSlave.__init__(self, name, password,
+        AbstractLatentWorker.__init__(self, name, password,
             max_builds=None, notify_on_missing=[], missing_timeout=60 * 20,
             build_wait_timeout=0, properties={}, locks=None)
         if not os.path.exists(aws_id_file_path):
@@ -43,9 +41,9 @@ class EC2LatentBuildSlave(AbstractLatentBuildSlave):
         with open(aws_id_file_path, "r") as aws_credentials_file:
             access_key_id = aws_credentials_file.readline().strip()
             secret_key = aws_credentials_file.readline().strip()
-        self.conn = boto.ec2.connect_to_region(region,
+        self.ec2_conn = boto.ec2.connect_to_region(region,
             aws_access_key_id=access_key_id, aws_secret_access_key=secret_key)
-        self.instance = self.conn.get_only_instances(filters={"tag:Name": instance_name})[0]
+        self.instance = self.ec2_conn.get_only_instances(filters={"tag:Name": instance_name})[0]
 
     def start_instance(self, build):
         return threads.deferToThread(self._start_instance)
