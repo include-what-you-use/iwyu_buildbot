@@ -28,12 +28,11 @@ sudo chown ubuntu:ubuntu /mnt/buildbot_iwyu_trunk/workspace/
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/sources
 cd /mnt/buildbot_iwyu_trunk/workspace/sources
-git clone --depth 1 https://git.llvm.org/git/llvm.git llvm
-git clone --depth 1 https://git.llvm.org/git/clang.git llvm/tools/clang
+git clone --depth 1 https://github.com/llvm/llvm-project.git llvm
 
 mkdir /mnt/buildbot_iwyu_trunk/workspace/build_llvm
 cd /mnt/buildbot_iwyu_trunk/workspace/build_llvm
-cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=YES /mnt/buildbot_iwyu_trunk/workspace/sources/llvm/
+cmake -G Ninja -DCMAKE_INSTALL_PREFIX=/mnt/buildbot_iwyu_trunk/workspace/installed/ -DLLVM_ENABLE_PROJECTS="clang" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_ASSERTIONS=YES /mnt/buildbot_iwyu_trunk/workspace/sources/llvm/llvm/
 ninja install
 
 
